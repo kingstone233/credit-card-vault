@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Add Card{% endblock %}
+{% block content %}
+<div class="card-box" style="max-width:480px;">
+    <h1>Add Card</h1>
+    <form method="POST" action="{{ url_for('new_card') }}">
+        <label for="customer_id">Customer</label>
+        <select id="customer_id" name="customer_id" required>
+            <option value="" disabled selected>Select a customer</option>
+            {% for c in customers %}
+            <option value="{{ c.customer_id }}">{{ c.full_name }} (ID {{ c.customer_id }})</option>
+            {% endfor %}
+        </select>
+
+        <label for="card_type">Card Type</label>
+        <select id="card_type" name="card_type" required>
+            <option value="Visa">Visa</option>
+            <option value="Mastercard">Mastercard</option>
+            <option value="Amex">Amex</option>
+        </select>
+
+        <label for="card_number">Card Number</label>
+        <input type="text" id="card_number" name="card_number" placeholder="4111 1111 1111 1111" required>
+
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" name="cvv" maxlength="4" required>
+
+        <label for="expiry_date">Expiry (MM/YYYY)</label>
+        <input type="text" id="expiry_date" name="expiry_date" placeholder="08/2027" required>
+
+        <button type="submit">Save Card (Encrypted)</button>
+    </form>
+</div>
+{% endblock %}
