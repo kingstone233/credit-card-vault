@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Manage Users{% endblock %}
+{% block content %}
+<div class="card-box" style="max-width:420px;">
+    <h1>Create New User</h1>
+    <form method="POST" action="{{ url_for('register') }}">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="role">Role</label>
+        <select id="role" name="role" required>
+            <option value="admin">admin</option>
+            <option value="support">support</option>
+            <option value="billing">billing</option>
+        </select>
+
+        <button type="submit">Create User</button>
+    </form>
+</div>
+{% endblock %}

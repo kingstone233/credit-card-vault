@@ -1,0 +1,31 @@
+cards{% extends "base.html" %}
+{% block title %}Cards{% endblock %}
+{% block content %}
+<h1>Cards on File</h1>
+<div class="actions">
+    <a class="link-btn" href="{{ url_for('new_card') }}">+ Add Card</a>
+</div>
+<div class="card-box">
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Customer ID</th><th>Type</th><th>Number</th><th>Expiry</th>{% if session.get('role') == 'admin' %}<th>Action</th>{% endif %}</tr>
+        </thead>
+        <tbody>
+        {% for c in cards %}
+            <tr>
+                <td>{{ c.card_id }}</td>
+                <td>{{ c.customer_id }}</td>
+                <td>{{ c.card_type }}</td>
+                <td class="masked">**** **** **** {{ c.last_four }}</td>
+                <td>{{ c.expiry_date }}</td>
+                {% if session.get('role') == 'admin' %}
+                <td><a href="{{ url_for('reveal_card', card_id=c.card_id) }}">Reveal</a></td>
+                {% endif %}
+            </tr>
+        {% else %}
+            <tr><td colspan="6">No cards on file.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
